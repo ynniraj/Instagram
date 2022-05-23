@@ -1,11 +1,10 @@
 import './App.css';
-import Handle from './Components/Handle';
-import Login from './Components/Login';
+import Routers from './Routers/Routers';
 
 function App() {
   return (
     <>
-      <Handle />
+      <Routers />
     </>
   );
 }
