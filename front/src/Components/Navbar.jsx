@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   FaRegCompass,
@@ -6,11 +6,17 @@ import {
   FaRegUserCircle,
   FaSearch,
   FaSignOutAlt,
+  FaRegPlusSquare,
 } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { loginLogout } from "../Redux/Login/action";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import { Button, Grid, TextField } from "@mui/material";
+import FileBase64 from "react-file-base64";
 
 const Container = styled.div`
   body {
@@ -110,6 +116,9 @@ const Container = styled.div`
 `;
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const [file, setFile] = useState();
+
   const navigate = useNavigate();
   const auth = useSelector((store) => store.login.token);
   const dispatch = useDispatch();
@@ -119,50 +128,140 @@ const Navbar = () => {
     sessionStorage.setItem("authtoken", "");
   };
 
+  const handleUploadPost = (e) => {
+    e.preventDefault();
+
+    const payload = {
+      caption: e.target.caption.value,
+      image: file,
+    };
+    console.log(payload);
+  };
   return (
-    <Container>
-      <div className="navigation">
-        <div className="logo">
-          <p className="no-underline" onClick={() => navigate("/")}>
-            Instagram
-          </p>
-        </div>
-        <div className="navigation-search-container">
-          <FaSearch className="fa-search" />
-          <input className="search-field" type="text" placeholder="Search" />
-          <div className="search-container">
-            <div className="search-container-box">
-              <div className="search-results"></div>
+    <>
+      <Container>
+        <div className="navigation">
+          <div className="logo">
+            <p className="no-underline" onClick={() => navigate("/")}>
+              Instagram
+            </p>
+          </div>
+          <div className="navigation-search-container">
+            <FaSearch className="fa-search" />
+            <input className="search-field" type="text" placeholder="Search" />
+            <div className="search-container">
+              <div className="search-container-box">
+                <div className="search-results"></div>
+              </div>
             </div>
           </div>
+          <div className="navigation-icons">
+            {auth ? (
+              <>
+                {" "}
+                <p
+                  className="navigation-link notifica"
+                  onClick={() => setOpen(true)}
+                >
+                  <FaRegPlusSquare />
+                </p>
+              </>
+            ) : null}
+            <p className="navigation-link">
+              <FaRegCompass />
+            </p>
+            <p className="navigation-link notifica">
+              <FaRegHeart />
+            </p>
+
+            <p
+              className="navigation-link"
+              onClick={auth ? null : () => navigate("/loginsignup")}
+            >
+              <FaRegUserCircle />
+            </p>
+            {auth ? (
+              <>
+                <p
+                  id="signout"
+                  className="navigation-link"
+                  onClick={handleLogout}
+                >
+                  <FaSignOutAlt />
+                </p>
+              </>
+            ) : null}
+          </div>
         </div>
-        <div className="navigation-icons">
-          <p className="navigation-link">
-            <FaRegCompass />
-          </p>
-          <p className="navigation-link notifica">
-            <FaRegHeart />
-          </p>
-          <p
-            className="navigation-link"
-            onClick={auth ? null : () => navigate("/loginsignup")}
+      </Container>
+      <Modal
+        open={open}
+        onClose={(e) => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            width: "600px",
+            height: "250px",
+            borderRadius: "10px",
+            backgroundColor: "white",
+          }}
+        >
+          <Box
+            noValidate
+            sx={{ mt: 1, padding: "30px" }}
+            component="form"
+            onSubmit={handleUploadPost}
           >
-            <FaRegUserCircle />
-          </p>
-          {auth ? (
-            <>
-              <p
-                id="signout"
-                className="navigation-link"
-                onClick={handleLogout}
-              >
-                <FaSignOutAlt />
-              </p>
-            </>
-          ) : null}
-        </div>
-      </div>
-    </Container>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="off"
+                  name="caption"
+                  required
+                  fullWidth
+                  id="caption"
+                  label="Caption"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <label htmlFor="upload-photo">
+                  <FileBase64
+                    id="upload-photo"
+                    name="upload-photo"
+                    type="file"
+                    multiple={false}
+                    onDone={(file) => {
+                      setFile(file.base64);
+                    }}
+                  />
+                </label>
+              </Grid>
+            </Grid>
+
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              type="submit"
+            >
+              Upload Post
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+    </>
   );
 };
 
