@@ -8,6 +8,8 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+
 const Container = styled.div`
   body {
     background: #fafafa;
@@ -39,12 +41,13 @@ const Container = styled.div`
     height: 50px;
   }
 
-  .navigation .logo a {
+  .navigation .logo p {
     position: relative;
     color: #000000;
-    font-size: 30px;
-    font-family: "billabong", sans-serif;
+    font-size: 24px;
+    font-family: sans-serif;
     text-decoration: none;
+    cursor: pointer;
   }
 
   .navigation-search-container {
@@ -96,50 +99,23 @@ const Container = styled.div`
     text-align: center;
   }
 
-  .navigation-icons a {
+  .navigation-icons p {
     text-decoration: none;
     font-size: 22px;
     padding-left: 26px;
   }
-
-  .navigation-link i {
-    margin-left: 30px;
-    color: black;
-    text-decoration: none;
-    font-size: 22px;
-  }
-
-  .notification-bubble-wrapper {
-    position: relative;
-    top: -30px;
-    left: 17px;
-  }
-
-  .notification-bubble {
-    position: absolute;
-    min-width: 20px;
-    min-height: 20px;
-    border-radius: 50%;
-    background: #ff2c74;
-    color: #fff;
-    text-align: center;
-    font-size: 13px;
-    padding: 5px 5px 3px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-weight: 500;
-    display: none;
-  }
 `;
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <div className="navigation">
         <div className="logo">
-          <a className="no-underline" href="#">
+          <p className="no-underline" onClick={() => navigate("/")}>
             Instagram
-          </a>
+          </p>
         </div>
         <div className="navigation-search-container">
           <FaSearch className="fa-search" />
@@ -151,18 +127,18 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navigation-icons">
-          <a className="navigation-link">
+          <p className="navigation-link">
             <FaRegCompass />
-          </a>
-          <a className="navigation-link notifica">
+          </p>
+          <p className="navigation-link notifica">
             <FaRegHeart />
-          </a>
-          <a className="navigation-link">
+          </p>
+          <p className="navigation-link">
             <FaRegUserCircle />
-          </a>
-          <a id="signout" className="navigation-link">
+          </p>
+          <p id="signout" className="navigation-link">
             <FaSignOutAlt />
-          </a>
+          </p>
         </div>
       </div>
     </Container>
