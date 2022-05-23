@@ -13,6 +13,12 @@ const register = async (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
+
+        const exists = await User.findOne({ email });
+        if (exists) return res.status(404).send('Email Already Exists');
+        const userExist = await User.findOne({ username });
+        if (userExist) return res.status(404).send('Username Already Exists');
+
         const userRegister = await User.create({ username, email, password })
         res.status(201).send(userRegister);
     } catch (err) {

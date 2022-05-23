@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -69,10 +71,15 @@ const Register = ({ handle }) => {
       .post("http://localhost:8080/register", payload)
       .then((res) => {
         console.log(res);
-        handle(true);
+        toast.success("Register successfull");
+        setTimeout(() => {
+          handle(true);
+        }, 2000);
       })
       .catch((e) => {
         console.log(e);
+        toast.error(e.response.data);
+        toast.error(e.response.data.errors[0]?.msg);
       });
   };
 
@@ -107,6 +114,7 @@ const Register = ({ handle }) => {
         Already have a account
         <span onClick={() => handle(true)}> Login</span>
       </p>
+      <ToastContainer />
     </Container>
   );
 };

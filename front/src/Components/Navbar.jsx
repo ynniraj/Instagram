@@ -149,9 +149,17 @@ const Navbar = () => {
           >
             <FaRegUserCircle />
           </p>
-          <p id="signout" className="navigation-link" onClick={handleLogout}>
-            <FaSignOutAlt />
-          </p>
+          {auth ? (
+            <>
+              <p
+                id="signout"
+                className="navigation-link"
+                onClick={handleLogout}
+              >
+                <FaSignOutAlt />
+              </p>
+            </>
+          ) : null}
         </div>
       </div>
     </Container>

@@ -16,7 +16,8 @@ const { post, allpost } = require("./controllers/post.controller");
 
 app.post("/register",
     body('email').isEmail().withMessage('Email is not valid'),
-    body('password').isLength({ min: 6 }).withMessage({ message: 'Password must be at least 6 characters' }), register)
+    body('username').isString().withMessage('User name is not valid'),
+    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'), register)
 
 app.post("/login", login)
 
