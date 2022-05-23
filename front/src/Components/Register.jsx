@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -63,7 +64,15 @@ const Register = ({ handle }) => {
       username: text.username,
       password: text.password,
     };
-    console.log(payload);
+
+    axios
+      .post("http://localhost:8080/register", payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -82,7 +91,7 @@ const Register = ({ handle }) => {
           value={text.username}
           onChange={handleChange}
           id="username"
-          placeholder="Password"
+          placeholder="Username"
         />
         <input
           type="text"

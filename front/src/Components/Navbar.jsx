@@ -103,6 +103,7 @@ const Container = styled.div`
     text-decoration: none;
     font-size: 22px;
     padding-left: 26px;
+    cursor: pointer;
   }
 `;
 
@@ -133,7 +134,10 @@ const Navbar = () => {
           <p className="navigation-link notifica">
             <FaRegHeart />
           </p>
-          <p className="navigation-link">
+          <p
+            className="navigation-link"
+            onClick={() => navigate("/loginsignup")}
+          >
             <FaRegUserCircle />
           </p>
           <p id="signout" className="navigation-link">

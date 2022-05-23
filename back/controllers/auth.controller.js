@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
 const register = async (req, res) => {
-    const { username, email, phone, password: hashPassword } = req.body;
+    const { username, email, password: hashPassword } = req.body;
     const password = await bcrypt.hash(hashPassword, 10);
     try {
 
@@ -13,7 +13,7 @@ const register = async (req, res) => {
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const userRegister = await User.create({ username, email, phone, password })
+        const userRegister = await User.create({ username, email, password })
         res.status(201).send(userRegister);
     } catch (err) {
         res.status(500).send(err);
@@ -38,13 +38,7 @@ const login = async (req, res) => {
         }, 'secretkey', { expiresIn: '1h' });
 
 
-        return res
-            .cookie("access_token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-            })
-            .status(200)
-            .send({ user, token })
+        return res.status(200).send({ user, token })
 
     } catch (err) {
         res.status(500).send(err);

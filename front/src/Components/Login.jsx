@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { loginSuccessData } from "../Redux/Login/action";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -9,7 +12,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  #email,
+  #username,
   #password {
     width: 80%;
     padding: 15px;
@@ -41,8 +44,11 @@ const Container = styled.div`
 `;
 
 const Login = ({ handle }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [text, setText] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -57,10 +63,10 @@ const Login = ({ handle }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
-      email: text.email,
+      username: text.username,
       password: text.password,
     };
-    console.log(payload);
+    dispatch(loginSuccessData(payload, navigate));
   };
 
   return (
@@ -69,10 +75,10 @@ const Login = ({ handle }) => {
         <h3>Login</h3>
         <input
           type="text"
-          value={text.email}
+          value={text.username}
           onChange={handleChange}
-          id="email"
-          placeholder="Email"
+          id="username"
+          placeholder="Username"
         />{" "}
         <br />
         <input
