@@ -11,6 +11,8 @@ const { register, login, getuserbyid } = require('./controllers/auth.controller'
 
 const { verifyToken, verifyUser, verifyAdmin } = require('./middlewares/verifyToken');
 
+const { post, allpost } = require("./controllers/post.controller");
+
 
 app.post("/register",
     body('email').isEmail().withMessage({
@@ -22,6 +24,10 @@ app.post("/register",
 app.post("/login", login)
 
 app.get("/getuserbyid/:id", [verifyAdmin], getuserbyid)
+
+
+app.post("/post", post)
+app.get("/allpost", allpost)
 
 
 
