@@ -28,9 +28,9 @@ export const getone = (payload) => ({
   payload,
 });
 
-export const loginSuccessData = (data, navigate, toast) => (dispatch) => {
+export const loginSuccessData = async (data, navigate, toast) => (dispatch) => {
   dispatch(loginLoading());
-  axios
+  await axios
     .post("http://localhost:8080/login", data)
     .then(({ data }) => {
       dispatch(loginSuccess(data));
@@ -42,20 +42,5 @@ export const loginSuccessData = (data, navigate, toast) => (dispatch) => {
       console.log(err);
       toast.error(err.response.data);
       dispatch(loginError());
-    });
-};
-
-export const getoneData = () => (dispatch) => {
-  const usertoken = sessionStorage.getItem("authtoken");
-  const userid = sessionStorage.getItem("userid");
-  axios
-    .get(`http://localhost:8080/getuserbyid/${userid}`, {
-      headers: { token: `Bearer ${usertoken}` },
-    })
-    .then(({ data }) => {
-      dispatch(getone(data));
-    })
-    .catch((err) => {
-      console.log(err);
     });
 };

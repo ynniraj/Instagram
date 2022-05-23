@@ -17,6 +17,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { Button, Grid, TextField } from "@mui/material";
 import FileBase64 from "react-file-base64";
+import axios from "axios";
 
 const Container = styled.div`
   body {
@@ -121,11 +122,14 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const auth = useSelector((store) => store.login.token);
+  const userDetails = useSelector((store) => store.login.users);
+
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(loginLogout());
     sessionStorage.setItem("authtoken", "");
+    sessionStorage.setItem("userid", "");
   };
 
   const handleUploadPost = (e) => {
@@ -134,8 +138,16 @@ const Navbar = () => {
     const payload = {
       caption: e.target.caption.value,
       image: file,
+      user: userDetails._id,
     };
-    console.log(payload);
+    axios
+      .post("http://localhost:8080/post", payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <>
