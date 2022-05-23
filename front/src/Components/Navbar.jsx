@@ -7,8 +7,10 @@ import {
   FaSearch,
   FaSignOutAlt,
 } from "react-icons/fa";
-
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loginLogout } from "../Redux/Login/action";
 
 const Container = styled.div`
   body {
@@ -109,6 +111,13 @@ const Container = styled.div`
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const auth = useSelector((store) => store.login.token);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(loginLogout());
+    sessionStorage.setItem("authtoken", "");
+  };
 
   return (
     <Container>
@@ -136,11 +145,11 @@ const Navbar = () => {
           </p>
           <p
             className="navigation-link"
-            onClick={() => navigate("/loginsignup")}
+            onClick={auth ? null : () => navigate("/loginsignup")}
           >
             <FaRegUserCircle />
           </p>
-          <p id="signout" className="navigation-link">
+          <p id="signout" className="navigation-link" onClick={handleLogout}>
             <FaSignOutAlt />
           </p>
         </div>

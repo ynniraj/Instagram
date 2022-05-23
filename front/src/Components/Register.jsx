@@ -69,6 +69,7 @@ const Register = ({ handle }) => {
       .post("http://localhost:8080/register", payload)
       .then((res) => {
         console.log(res);
+        handle(true);
       })
       .catch((e) => {
         console.log(e);
