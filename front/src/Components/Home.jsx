@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess } from "../Redux/Login/action";
+import Feed from "./Feed";
 import Handle from "./Handle";
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
   const authtoken = sessionStorage.getItem("authtoken");
   dispatch(loginSuccess(authtoken));
 
-  return <>{auth ? "home" : <Handle />}</>;
+  return <>{auth ? <Feed /> : <Handle />}</>;
 };
 
 export default Home;

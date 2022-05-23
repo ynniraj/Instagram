@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { loginSuccessData } from "../Redux/Login/action";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   background-color: whitesmoke;
@@ -62,11 +64,15 @@ const Login = ({ handle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      username: text.username,
-      password: text.password,
-    };
-    dispatch(loginSuccessData(payload, navigate));
+    if (!text.username || !text.password) {
+      toast.error("All Fields Are Mandatory");
+    } else {
+      const payload = {
+        username: text.username,
+        password: text.password,
+      };
+      dispatch(loginSuccessData(payload, navigate, toast));
+    }
   };
 
   return (
@@ -94,6 +100,7 @@ const Login = ({ handle }) => {
       <p>
         Create a new account <span onClick={() => handle(false)}>Register</span>
       </p>
+      <ToastContainer />
     </Container>
   );
 };

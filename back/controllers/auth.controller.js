@@ -29,6 +29,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     const { username, password } = req.body;
     try {
+
         const user = await User.findOne({ username });
         if (!user) {
             res.status(404).send('User not found');

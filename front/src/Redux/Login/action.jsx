@@ -28,19 +28,18 @@ export const getone = (payload) => ({
   payload,
 });
 
-export const loginSuccessData = (data, navigate) => (dispatch) => {
+export const loginSuccessData = (data, navigate, toast) => (dispatch) => {
   dispatch(loginLoading());
   axios
     .post("http://localhost:8080/login", data)
     .then(({ data }) => {
-      console.log(data);
       dispatch(loginSuccess(data));
       sessionStorage.setItem("authtoken", data.token);
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+      toast.success("Login successfull");
     })
     .catch((err) => {
+      console.log(err);
+      toast.error(err.response.data);
       dispatch(loginError());
     });
 };
