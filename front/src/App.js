@@ -1,10 +1,11 @@
 import './App.css';
+import Handle from './Components/Handle';
 import Login from './Components/Login';
 
 function App() {
   return (
     <>
-      <Login />
+      <Handle />
     </>
   );
 }
