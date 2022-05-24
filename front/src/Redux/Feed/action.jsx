@@ -17,6 +17,7 @@ export const feedSuccess = (payload) => ({
 
 export const feedSuccessData = () => async (dispatch) => {
   dispatch(feedLoading());
+
   await axios
     .get("http://localhost:8080/allpost")
     .then(({ data }) => {

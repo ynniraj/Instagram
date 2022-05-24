@@ -8,8 +8,6 @@ import {
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin-bottom: 30px;
-
   .header {
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -43,21 +41,23 @@ const Container = styled.div`
   .caption {
     padding-left: 30px;
     margin-top: -6px;
+    margin-bottom: 30px;
   }
   .caption h4 {
     font-size: 16px;
     font-weight: 600;
+    padding-bottom: 5px;
   }
 `;
 
-const Posts = ({ caption, image, id }) => {
+const Posts = ({ caption, image, id, username }) => {
   return (
     <Container>
       <div className="header">
         <p>
           <FaRegUserCircle />
         </p>
-        <h3>Neeraj Yadav</h3>
+        <h3>{username}</h3>
       </div>
       <div className="uploadimg">
         <img src={image} alt="images" />
@@ -68,7 +68,7 @@ const Posts = ({ caption, image, id }) => {
         <FaShare className="i" />
       </div>
       <div className="caption">
-        <h4>Neeraj Yadav</h4>
+        <h4>{username}</h4>
         <p>{caption}</p>
       </div>
     </Container>

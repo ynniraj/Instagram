@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Posts from "./Posts";
 import { useDispatch, useSelector } from "react-redux";
 import { feedSuccessData } from "../Redux/Feed/action";
+import { getoneData } from "../Redux/Login/action";
 
 const Container = styled.div`
   * {
@@ -25,12 +26,19 @@ const Feed = () => {
 
   useEffect(() => {
     dispatch(feedSuccessData());
+    dispatch(getoneData());
   }, [dispatch]);
 
   return (
     <Container>
       {feedData.map((el) => (
-        <Posts id={el._id} key={el._id} image={el.image} caption={el.caption} />
+        <Posts
+          id={el._id}
+          key={el._id}
+          image={el.image}
+          caption={el.caption}
+          username={el.user.username}
+        />
       ))}
     </Container>
   );
