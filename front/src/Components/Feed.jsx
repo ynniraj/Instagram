@@ -37,7 +37,7 @@ const Feed = () => {
           key={el._id}
           image={el.image}
           caption={el.caption}
-          username={el.user.username}
+          username={el.user?.username}
         />
       ))}
     </Container>

@@ -27,4 +27,5 @@ export const feedSuccessData = () => async (dispatch) => {
       console.log(err);
       dispatch(feedError());
     });
+    
 };

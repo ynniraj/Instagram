@@ -20,6 +20,7 @@ import FileBase64 from "react-file-base64";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { feedSuccessData } from "../Redux/Feed/action";
 
 const Container = styled.div`
   body {
@@ -147,6 +148,7 @@ const Navbar = () => {
       .then((res) => {
         toast.success("Upload Successfully");
         console.log(res);
+        dispatch(feedSuccessData());
         setOpen(false);
       })
       .catch((err) => {
