@@ -1,11 +1,11 @@
 import React from "react";
-import {
-  FaRegUserCircle,
-  FaRegHeart,
-  FaRegComment,
-  FaShare,
-} from "react-icons/fa";
+import { FaRegUserCircle, FaRegComment, FaShare } from "react-icons/fa";
 import styled from "styled-components";
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Container = styled.div`
   .header {
@@ -51,6 +51,10 @@ const Container = styled.div`
 `;
 
 const Posts = ({ caption, image, id, username }) => {
+  const [checked, setChecked] = React.useState(false);
+  const handleLikeChange = (event) => {
+    setChecked(event.target.checked);
+  };
   return (
     <Container>
       <div className="header">
@@ -63,7 +67,22 @@ const Posts = ({ caption, image, id, username }) => {
         <img src={image} alt="images" />
       </div>
       <div className="icons">
-        <FaRegHeart className="i" />
+        <span>
+          {" "}
+          <Checkbox
+            onChange={handleLikeChange}
+            sx={{
+              marginTop: "-10px",
+              marginLeft: "16px",
+              marginRight: "-12px",
+              color: "black",
+            }}
+            {...label}
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+            checked={checked}
+          />
+        </span>
         <FaRegComment className="i" />
         <FaShare className="i" />
       </div>
