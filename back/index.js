@@ -11,7 +11,7 @@ const { register, login, getuserbyid } = require('./controllers/auth.controller'
 
 const { verifyToken, verifyUser, verifyAdmin } = require('./middlewares/verifyToken');
 
-const { post, allpost } = require("./controllers/post.controller");
+const { post, allpost, singleuser } = require("./controllers/post.controller");
 
 
 app.post("/register",
@@ -26,6 +26,7 @@ app.get("/getuserbyid/:id", [verifyUser], getuserbyid)
 
 app.post("/post", post)
 app.get("/allpost", allpost)
+app.get("/singleuser/:id", singleuser)
 
 
 

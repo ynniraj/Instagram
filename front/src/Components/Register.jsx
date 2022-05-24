@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import FileBase64 from "react-file-base64";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -50,6 +51,7 @@ const Register = ({ handle }) => {
     password: "",
     username: "",
   });
+  const [file, setFile] = useState();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -65,8 +67,9 @@ const Register = ({ handle }) => {
       email: text.email,
       username: text.username,
       password: text.password,
+      image: file,
     };
-
+    console.log(payload);
     axios
       .post("http://localhost:8080/register", payload)
       .then((res) => {
@@ -87,6 +90,17 @@ const Register = ({ handle }) => {
     <Container>
       <form action="" onSubmit={handleSubmit}>
         <h3>Register</h3>
+        <label htmlFor="upload-photo">
+          <FileBase64
+            id="upload-photo"
+            name="upload-photo"
+            type="file"
+            multiple={false}
+            onDone={(file) => {
+              setFile(file.base64);
+            }}
+          />
+        </label>
         <input
           type="text"
           value={text.email}

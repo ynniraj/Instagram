@@ -14,7 +14,6 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 50%;
-  background-color: whitesmoke;
   margin: auto;
   margin-top: 6%;
 `;
@@ -38,6 +37,7 @@ const Feed = () => {
           image={el.image}
           caption={el.caption}
           username={el.user?.username}
+          userImage={el.user?.image}
         />
       ))}
     </Container>

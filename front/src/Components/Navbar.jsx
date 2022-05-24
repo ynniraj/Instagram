@@ -20,6 +20,7 @@ import FileBase64 from "react-file-base64";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { loginSuccess } from "../Redux/Login/action";
 import { feedSuccessData } from "../Redux/Feed/action";
 
 const Container = styled.div`
@@ -128,6 +129,7 @@ const Navbar = () => {
   const userDetails = useSelector((store) => store.login.users);
 
   const dispatch = useDispatch();
+
 
   const handleLogout = () => {
     dispatch(loginLogout());

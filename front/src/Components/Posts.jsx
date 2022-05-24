@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegUserCircle, FaRegComment, FaShare } from "react-icons/fa";
+import {  FaRegComment, FaShare } from "react-icons/fa";
 import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -8,17 +8,21 @@ import Favorite from "@mui/icons-material/Favorite";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Container = styled.div`
+  margin-top: 3%;
+  background-color: whitesmoke;
+
   .header {
     display: flex;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px;
   }
-  .header p {
-    font-size: 30px;
+  .header img {
+    border-radius: 50%;
+    width: 7%;
   }
   .header h3 {
     font-size: 20px;
-    padding: 2px;
+    padding: 7px;
     padding-left: 10px;
   }
   .uploadimg {
@@ -42,25 +46,34 @@ const Container = styled.div`
     padding-left: 30px;
     margin-top: -6px;
     margin-bottom: 30px;
+    p {
+      padding-top: 10px;
+    }
   }
-  .caption h4 {
-    font-size: 16px;
-    font-weight: 600;
-    padding-bottom: 5px;
+
+  .userf {
+    display: flex;
+    img {
+      border-radius: 50%;
+      width: 5%;
+    }
+    h4 {
+      padding-left: 6px;
+      padding-top: 3px;
+    }
   }
 `;
 
-const Posts = ({ caption, image, id, username }) => {
+const Posts = ({ caption, image, id, username, userImage }) => {
   const [checked, setChecked] = React.useState(false);
   const handleLikeChange = (event) => {
     setChecked(event.target.checked);
   };
   return (
-    <Container>
+    <Container style={{ marginTop: "3%" }}>
       <div className="header">
-        <p>
-          <FaRegUserCircle />
-        </p>
+        <img src={userImage} alt="images" />
+
         <h3>{username}</h3>
       </div>
       <div className="uploadimg">
@@ -87,7 +100,11 @@ const Posts = ({ caption, image, id, username }) => {
         <FaShare className="i" />
       </div>
       <div className="caption">
-        <h4>{username}</h4>
+        <div className="userf">
+          <img src={userImage} alt="images" />
+
+          <h4>{username}</h4>
+        </div>
         <p>{caption}</p>
       </div>
     </Container>

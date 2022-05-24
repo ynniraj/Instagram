@@ -14,12 +14,20 @@ const post = async (req, res) => {
 
 const allpost = async (req, res) => {
     try {
-        const post = await Post.find().populate({ path: "user", select: ["username"] }).lean().exec();
+        const post = await Post.find().populate({ path: "user", select: ["username", "image"] }).lean().exec();
+        return res.status(201).send(post);
+    } catch (e) {
+        return res.status(400).send(e);
+    }
+}
+const singleuser = async (req, res) => {
+    try {
+        const post = await Post.find({ user: req.params.id }).populate({ path: "user", select: ["username", "image"] }).lean().exec();
         return res.status(201).send(post);
     } catch (e) {
         return res.status(400).send(e);
     }
 }
 
-module.exports = { post, allpost };
+module.exports = { post, allpost, singleuser };
 

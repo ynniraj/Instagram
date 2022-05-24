@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 
 const register = async (req, res) => {
-    const { username, email, password: hashPassword } = req.body;
+    const { username, email, password: hashPassword, image } = req.body;
     const password = await bcrypt.hash(hashPassword, 10);
     try {
 
@@ -19,7 +19,7 @@ const register = async (req, res) => {
         const userExist = await User.findOne({ username });
         if (userExist) return res.status(404).send('Username Already Exists');
 
-        const userRegister = await User.create({ username, email, password })
+        const userRegister = await User.create({ username, email, password, image })
         res.status(201).send(userRegister);
     } catch (err) {
         res.status(500).send(err);
