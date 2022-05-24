@@ -18,6 +18,8 @@ import Modal from "@mui/material/Modal";
 import { Button, Grid, TextField } from "@mui/material";
 import FileBase64 from "react-file-base64";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
   body {
@@ -143,10 +145,13 @@ const Navbar = () => {
     axios
       .post("http://localhost:8080/post", payload)
       .then((res) => {
+        toast.success("Upload Successfully");
         console.log(res);
+        setOpen(false);
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Something went wrong");
       });
   };
   return (
@@ -188,7 +193,11 @@ const Navbar = () => {
 
             <p
               className="navigation-link"
-              onClick={auth ? null : () => navigate("/loginsignup")}
+              onClick={
+                auth
+                  ? () => navigate("/profile")
+                  : () => navigate("/loginsignup")
+              }
             >
               <FaRegUserCircle />
             </p>
@@ -274,6 +283,7 @@ const Navbar = () => {
           </Box>
         </Box>
       </Modal>
+      <ToastContainer />
     </>
   );
 };
