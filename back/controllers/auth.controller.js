@@ -60,6 +60,45 @@ const getuserbyid = async (req, res) => {
         return res.status(500).send(err)
     }
 }
+const alluser = async (req, res) => {
+    try {
+        const user = await User.find().lean().exec()
+        return res.status(200).send(user);
+    } catch (err) {
+        return res.status(500).send(err)
+    }
+}
+
+const userfollow = async (req, res) => {
+    try {
+
+        const user = await User.findByIdAndUpdate(req.params.id,
+            { $push: req.body }
+            , {
+                new: true
+            }).lean().exec();
+
+        return res.status(201).send(user)
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message, status: "Failed" });
+    }
+}
+const userunfollow = async (req, res) => {
+    try {
+
+        const user = await User.findByIdAndUpdate(req.params.id,
+            { $pull: req.body }
+            , {
+                new: true
+            }).lean().exec();
+
+        return res.status(201).send(user)
+    }
+    catch (e) {
+        return res.status(500).json({ message: e.message, status: "Failed" });
+    }
+}
 
 
-module.exports = { register, login, getuserbyid }
+module.exports = { register, login, getuserbyid, alluser, userfollow, userunfollow }

@@ -1,5 +1,5 @@
 import React from "react";
-import {  FaRegComment, FaShare } from "react-icons/fa";
+import { FaRegComment, FaShare } from "react-icons/fa";
 import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
@@ -70,7 +70,7 @@ const Posts = ({ caption, image, id, username, userImage }) => {
     setChecked(event.target.checked);
   };
   return (
-    <Container style={{ marginTop: "3%" }}>
+    <Container style={{ marginTop: "3%", paddingBottom: "10px" }}>
       <div className="header">
         <img src={userImage} alt="images" />
 

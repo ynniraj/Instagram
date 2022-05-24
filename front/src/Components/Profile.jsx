@@ -84,7 +84,7 @@ const Profile = () => {
               0 <br /> <span>Followers</span>
             </h4>
             <h4>
-              0 <br /> <span>Following</span>
+              {userDetails.following?.length} <br /> <span>Following</span>
             </h4>
           </div>
         </div>

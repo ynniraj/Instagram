@@ -7,7 +7,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
-const { register, login, getuserbyid } = require('./controllers/auth.controller');
+const { register, login, getuserbyid, alluser, userfollow, userunfollow } = require('./controllers/auth.controller');
 
 const { verifyToken, verifyUser, verifyAdmin } = require('./middlewares/verifyToken');
 
@@ -20,7 +20,9 @@ app.post("/register",
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'), register)
 
 app.post("/login", login)
-
+app.patch("/userfollow/:id", userfollow)
+app.patch("/userunfollow/:id", userunfollow)
+app.get("/alluser", alluser)
 app.get("/getuserbyid/:id", [verifyUser], getuserbyid)
 
 
