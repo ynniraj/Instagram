@@ -1,46 +1,29 @@
 import axios from "axios";
 
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const FEED_SUCCESS = "FEED_SUCCESS";
 
-export const LOGIN_ERROR = "LOGIN_ERROR";
+export const FEED_ERROR = "FEED_ERROR";
 
-export const LOGIN_LOADING = "LOGIN_LOADING";
+export const FEED_LOADING = "FEED_LOADING";
 
-export const LOGIN_LOGOUT = "LOGIN_LOGOUT";
+export const feedLoading = () => ({ type: FEED_LOADING });
 
-export const GET_ONE = "GET_ONE";
+export const feedError = () => ({ type: FEED_ERROR });
 
-export const loginLoading = () => ({ type: LOGIN_LOADING });
-
-export const loginError = () => ({ type: LOGIN_ERROR });
-
-export const loginSuccess = (payload) => ({
-  type: LOGIN_SUCCESS,
+export const feedSuccess = (payload) => ({
+  type: FEED_SUCCESS,
   payload,
 });
 
-export const loginLogout = () => ({
-  type: LOGIN_LOGOUT,
-});
-
-export const getone = (payload) => ({
-  type: GET_ONE,
-  payload,
-});
-
-export const loginSuccessData = async (data, navigate, toast) => (dispatch) => {
-  dispatch(loginLoading());
+export const feedSuccessData = () => async (dispatch) => {
+  dispatch(feedLoading());
   await axios
-    .post("http://localhost:8080/login", data)
+    .get("http://localhost:8080/allpost")
     .then(({ data }) => {
-      dispatch(loginSuccess(data));
-      sessionStorage.setItem("authtoken", data.token);
-      sessionStorage.setItem("userid", data.user._id);
-      toast.success("Login successfull");
+      dispatch(feedSuccess(data));
     })
     .catch((err) => {
       console.log(err);
-      toast.error(err.response.data);
-      dispatch(loginError());
+      dispatch(feedError());
     });
 };

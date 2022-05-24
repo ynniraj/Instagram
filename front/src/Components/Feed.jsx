@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import Posts from "./Posts";
+import { useDispatch, useSelector } from "react-redux";
+import { feedSuccessData } from "../Redux/Feed/action";
 
 const Container = styled.div`
   * {
@@ -16,12 +19,19 @@ const Container = styled.div`
 `;
 
 const Feed = () => {
+  const dispatch = useDispatch();
+
+  const feedData = useSelector((store) => store.feeds.feed);
+
+  useEffect(() => {
+    dispatch(feedSuccessData());
+  }, [dispatch]);
+
   return (
     <Container>
-      <h1>feed</h1>
-      <h1>feed</h1>
-      <h1>feed</h1>
-      <h1>feed</h1>
+      {feedData.map((el) => (
+        <Posts id={el._id} key={el._id} image={el.image} caption={el.caption} />
+      ))}
     </Container>
   );
 };

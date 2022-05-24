@@ -28,9 +28,9 @@ export const getone = (payload) => ({
   payload,
 });
 
-export const loginSuccessData = (data, navigate, toast) => (dispatch) => {
+export const loginSuccessData = (data, navigate, toast) => async (dispatch) => {
   dispatch(loginLoading());
-  axios
+  await axios
     .post("http://localhost:8080/login", data)
     .then(({ data }) => {
       dispatch(loginSuccess(data));

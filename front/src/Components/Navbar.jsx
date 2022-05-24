@@ -255,6 +255,7 @@ const Navbar = () => {
                     type="file"
                     multiple={false}
                     onDone={(file) => {
+                      console.log(JSON.stringify(file.base64))
                       setFile(file.base64);
                     }}
                   />
