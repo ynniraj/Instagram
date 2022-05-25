@@ -105,6 +105,7 @@ const Suggestion = () => {
             >
               {follow === el._id ? "Unfollow" : "Follow"}
             </Button>
+            
           </div>
         </div>
       ))}
