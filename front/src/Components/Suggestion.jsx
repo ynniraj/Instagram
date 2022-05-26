@@ -52,6 +52,7 @@ const Suggestion = () => {
   });
 
   const handleFollow = (id) => {
+    
     setFollow(id);
     const payload = {
       following: id,
