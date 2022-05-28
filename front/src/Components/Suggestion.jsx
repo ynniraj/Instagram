@@ -83,7 +83,9 @@ const Suggestion = () => {
   return (
     <Container>
       {filterData.map((el) => (
+
         <div className="header" key={el._id}>
+          
           <div className="image">
             <img src={el.image} alt="" />
           </div>
