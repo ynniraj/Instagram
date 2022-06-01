@@ -86,6 +86,7 @@ const Suggestion = () => {
 
         <div className="header" key={el._id}>
           
+          
           <div className="image">
             <img src={el.image} alt="" />
           </div>
